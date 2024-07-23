@@ -8,7 +8,7 @@ app.use(cors());
 
 app.get("/", async (req, res) => {
   try {
-    const options = req.query.options;
+    const options = JSON.parse(req.query.options);
 
     // const options = {
     //   method: "GET",
