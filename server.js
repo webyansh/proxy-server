@@ -8,17 +8,18 @@ app.use(cors());
 
 app.get("/", async (req, res) => {
   try {
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        authorization:
-          "Bearer d035adbfa78f3c420af7cd3c6c12637047fc29b39a4a9772b33224a999fb95df",
-      },
-    };
+    const options = req.query.options;
+
+    // const options = {
+    //   method: "GET",
+    //   headers: {
+    //     accept: "application/json",
+    //     authorization:
+    //       "Bearer d035adbfa78f3c420af7cd3c6c12637047fc29b39a4a9772b33224a999fb95df",
+    //   },
+    // };
 
     const response = await fetch(
-      //`https://jsonplaceholder.typicode.com/todos/1`
       `https://api.webflow.com/v2/sites/669ca79ffbea6888c8cd512c/collections`,
       options
     );
