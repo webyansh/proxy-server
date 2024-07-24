@@ -1,15 +1,18 @@
 const express = require("express");
 const fetch = require("node-fetch");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 
 const app = express();
 
 app.use(cors());
+app.use(bodyParser.json());
 
-app.get("/", async (req, res) => {
+app.post("/", async (req, res) => {
   try {
-    const options = JSON.parse(req.query.options);
-    const url = req.query.request_url;
+    const options = req.body.options;
+    const url = req.body.request_url;
+
     const response = await fetch(`${url}`, options);
 
     if (!response.ok) {
