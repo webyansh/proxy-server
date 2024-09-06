@@ -69,8 +69,22 @@ app.post("/others", async (req, res) => {
         `HTTP error! status: ${response.status}, message: ${errorText}`
       );
     }
-    const data = await response.json();
-    res.json(data);
+   // const data = await response.json();
+   // res.json(data);
+    
+    const contentType = response.headers.get("content-type");
+    let responseData;
+  
+    if (contentType && contentType.indexOf("application/json") !== -1) {
+      // If the response is JSON, parse it as JSON
+      responseData = await response.json();
+    } else {
+      // If the response is not JSON, read it as text
+      responseData = await response.text();
+    }
+    // Send the response back to the client
+    res.status(response.status).send(responseData);
+    
   } catch (error) {
     console.error("Error:", error.message);
     res.status(500).json({
